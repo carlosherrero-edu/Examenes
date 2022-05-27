@@ -1,53 +1,63 @@
 package trimestre3.prueba2;
 
+
+import java.util.TreeMap;
+
 public class TraductorMorse {
-
+	
 	/*
-	 * Contestar aqui&acute; al apartado 1 y definir a continuacio&acute; n el tipo
-	 * de estructura necesaria
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
+	 * La estructura más adecuada es un diccionario, ya que necesitamos guardar pares de objetos:
+	 * Una letra  (clase Character) y una secuencia de puntos y rayas - clase String- 
+	 * ADemás cada letra debe tener una codificación única (no puede repetirse)
+	 * TreeMap nos garantiza la ordenación, aunque en este caso no es relevante...
+	 * ... pues el diccionario va a tener pocos elementos
 	 */
+	
+	private static TreeMap<Character,String> codigos;
+	
+	public  TraductorMorse() {
+		codigos=new TreeMap<>();
+		//introducimos ahora la codificación de las 5 vocales en morse
+		codigos.put('A', ".-");
+		codigos.put('E', ".");
+		codigos.put('I', "..");
+		codigos.put('O', "---");
+		codigos.put('U', "..-");
+		
+	}
+	
+	public static String traducirAMorse (String frase){
 
-	/*
-	 * Definir aqui&acute; el constructor de la clase Dentro del constructor,
-	 * rellenar la estructura para que se traduzcan a Morse las 5 vocales
-	 */
-
-	public static String traducirAMorse(String frase) {
-
-		frase = frase.trim().toUpperCase();
-		// cadena donde generaremos la salida del método
-		String salidaMorse = "";
-
-		// iniciar un bucle para ir recorriendo los caracteres de "frase"
-		{
-			/*
-			 * Dentro del bucle:
-			 *  leer un nuevo caracter 
-			 *  a) si es separador de palabra,escribir en la salida 2 espacios. 
-			 *  b) si no es separador de palabra: 
-			 *  Obtener la representacio&acute;n en Morse del cara&acute;cter 
-			 *  agregar la representacio&acute;n Morse a la salida 
-			 *  agregar un espacio entre caractres
-			 */
+		frase= frase.trim().toUpperCase();
+		String salidaMorse="";
+		char letra;
+		/*
+		 * Bucle para ir recorriendo la cadena y obtener cada carácter
+		 */
+		for (int i=0; i< frase.length(); i++){
+			letra=frase.charAt(i);
+			if (letra==' ') {
+				salidaMorse+="  "; //2 espacios
+			} else {
+				//obtenemos el código morse correspondiente y agregamos 1 espacio
+				salidaMorse+=codigos.get(letra);
+				salidaMorse+=" "; //1 espacio
+			}
+		
 
 		} // fin del bucle
 
-		return salidaMorse;
-	} // fin función
 
-	// clase de prueba
-	public static void main(String[] args) {
-		TraductorMorse traductor = new TraductorMorse();
-		String frase1 = "AEIOU AEIOU AEIOU";
-		String frase2 = "AAE EEA IO OOU";
-		System.out.println(TraductorMorse.traducirAMorse(frase1));
-		System.out.println(TraductorMorse.traducirAMorse(frase2));
-	}
+		return salidaMorse;
+		} //fin función
+	
+		public static void main(String[] args) {
+			TraductorMorse traductor=new TraductorMorse();
+			String frase1="AEIOU AEIOU AEIOU";
+			String frase2="AAE EEA IO OOU";
+			System.out.println(traductor.traducirAMorse(frase1));
+			System.out.println(traductor.traducirAMorse(frase2));
+		}
+
 
 }
