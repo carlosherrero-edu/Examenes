@@ -1,0 +1,4 @@
+12345678;González Ortega;Ana María;1500.25
+23456789;Flores Navarro;Raquel;3500.75
+34567890;Martínez Olivares;Manuel;2345.66
+45678901;Bernal García;Pablo Javier;4444.55
