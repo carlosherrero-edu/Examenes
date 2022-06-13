@@ -20,14 +20,14 @@ public class Ejercicio1 {
 		File fich_entrada = new File(ruta + "/" + NOMBRE1);
 		File fich_salida = new File(ruta + "/" + NOMBRE2);
 		int num_lineas = 0;
-		// inicialización de flujos de entrada y salida
+		// inicializaciï¿½n de flujos de entrada y salida
 		try (BufferedReader lector = new BufferedReader(new FileReader(fich_entrada));
 				BufferedWriter escritor = new BufferedWriter(new FileWriter(fich_salida))) {
 
 			String linea, linea_ofuscada;
-			// leemos el fichero de entrada linea a línea
+			// leemos el fichero de entrada linea a lï¿½nea
 			while ((linea = lector.readLine()) != null) {
-				// obtenemos la línea ofuscada y la escribimos en fichero de salida
+				// obtenemos la lï¿½nea ofuscada y la escribimos en fichero de salida
 				linea_ofuscada = ofuscarLinea(linea);
 				escritor.write(linea_ofuscada);
 				escritor.write("\n");
@@ -42,58 +42,55 @@ public class Ejercicio1 {
 
 		return num_lineas;
 
-	} // fin del método
+	} // fin del mï¿½todo
+	
+	//12345678;Abad Martin;Pedro Luis;333.33
+	//**3456**;Abad M.;P.L.;333.33
 
 	static String ofuscarLinea(String linea) {
 		String ofuscada = "";
 		// separar los campos del fichero CSV
 		String[] tokens = linea.split(SEPARADOR);
 		// el primer token es el DNI
+		//12345678
 		ofuscada += "**" + tokens[0].substring(2, 6) + "**";
 
 		// el segundo token son los dos apellidos
 		String[] apellidos = tokens[1].split("\\p{Space}+");
-		ofuscada += ofuscarApellidos(apellidos[0], apellidos[1]);
+		ofuscada += SEPARADOR+ ofuscarApellidos(apellidos[0], apellidos[1]);
 
 		// el siguiente token es la lista de nombre o nombres
 
 		String[] nombres = tokens[2].split("\\p{Space}+");
-		ofuscada += ofuscarNombres(nombres);
+		ofuscada += SEPARADOR+ ofuscarNombres(nombres);
 
-		// por ultimo, el último token se dejasin cambiar
+		// por ultimo, el ï¿½ltimo token se dejasin cambiar
 		ofuscada += SEPARADOR + tokens[3];
 
 		return ofuscada;
 	}
 
 	static String ofuscarApellidos(String apellido1, String apellido2) {
-		String resultado = "";
-		// el primer apellido se pasa como está
-		resultado += SEPARADOR + apellido1;
-		// del segndo apellido se deja solamente el punto
-		resultado += " " + apellido2.substring(0, 1) + ".";
-		return resultado;
+	
+		return apellido1+" "+apellido2.substring(0, 1) + ".";
 
 	}
 
 	static String ofuscarNombres(String[] nombres) {
 		String resultado = "";
-		// de cada nombre dejamos solamente la inicial y el punto
-		for (int i = 0; i < nombres.length; i++) {
-			// en la primera línea, hay que agregar el separador
-			if (i == 0) {
-				resultado += SEPARADOR;
-			}
-			// en cualquier caso, hay que agregar la inicial del nombre, seguida de "."
-			resultado += nombres[i].substring(0, 1) + ".";
-
-		} // fin del bucle
+		
+		for (String nombre : nombres) {
+			resultado = resultado+ nombre.substring(0, 1) + ".";
+		}// fin del bucle
+		
+	
 		return resultado;
 
 	}
 
-	// prueba del método de ofuscación
+	// prueba del mï¿½todo de ofuscaciï¿½n
 	public static void main(String[] args) {
-		System.out.println("Líneas tratadas del fichero " + ofuscarFicheroBeneficiarios("."));
+		Ejercicio1 objeto= new Ejercicio1();
+		System.out.println("Lï¿½neas tratadas del fichero " + objeto.ofuscarFicheroBeneficiarios("."));
 	}
 }

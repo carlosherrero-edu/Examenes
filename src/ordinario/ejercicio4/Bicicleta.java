@@ -40,10 +40,13 @@ public class Bicicleta extends Vehiculo implements Imprimible{
 		return platoActual;
 	}
 	public void setPlatoActual(int platoActual) {
-		if (platoActual<1 || platoActual> PLATO_MAXIMO){
+		if (platoActual>=1 && platoActual<= PLATO_MAXIMO){
+			this.platoActual = platoActual;
+			
+		} else {
 			throw new IllegalArgumentException("El plato no está entre los valores permitidos");
 		}
-		this.platoActual = platoActual;
+	
 	}
 	
 	

@@ -18,7 +18,7 @@ public class Ejercicio2 {
     static int sumarLista(int[] lista){
         int suma=0;
         for (int valor: lista){
-            suma += valor;
+            suma =suma+ valor;
         }
         return suma;
     }
@@ -29,11 +29,17 @@ public class Ejercicio2 {
      * @return  array de 12 posiciones con el total de unidades vendidas en cada mes
      */
     static int[] obtenerVentasPorMes (int[][] ventas){
+    	
         int[] ventasPorMes= new int[MESES];
         
         for (int i=0; i<MESES; i++){
             //tenemos que sumar fila a fila. ventas[i] son las ventas de ese mes
-            ventasPorMes[i] = sumarLista(ventas[i]);
+//           int suma=0; // variable acumulador
+//           for (int j=0; j< ventas[i].length; j++) {
+//        	   suma=suma+ventas[i][j];
+//           }// fin recorrido de columnas
+//           ventasPorMes[i]=suma;
+        	ventasPorMes[i]= sumarLista(ventas[i]);
         }
         return ventasPorMes;
     }
@@ -44,19 +50,19 @@ public class Ejercicio2 {
      * @return array con el número de unidades vendidas de cada producto durante todo el año
      */
     static int[] obtenerVentasPorProducto (int[][] ventas){
+    	
         //número de productos o columnas de la matriz
         int productos= ventas[0].length;
         int[] ventasPorProducto= new int[productos];
         //recorrer por columnas
-        for (int k=0; k<productos; k++){
-            //la columna k consta de 12 filas, hay que recorrerla
-            int[] columna= new int[MESES];
+        for (int j=0; j<productos; j++){
+            int suma=0;
+            //recorro por filas
+            for (int i=0; i<ventas.length; i++) {
+            	suma= suma+ventas[i][j];
+            } 
             
-             for (int i=0; i<MESES; i++){
-                 columna[i]=ventas[i][k];
-             }
-             //calculamos la suma de los términos de la columna
-             ventasPorProducto[k]=sumarLista(columna);
+            ventasPorProducto[j]=suma;
         }
         
         return ventasPorProducto;
@@ -74,16 +80,17 @@ public class Ejercicio2 {
         
         int[] productosEstrella= new int[MESES];
         
+        //recorrido por meses
         for (int i=0; i<MESES; i++){
            //suponemos inicialmente que el primer producto es el más vendido del mes
-           int estrella=0;
-           int ventasEstrella= ventas[i][0];
+           int estrella=0;    //indice-codigo del producto más vendido
+           int ventasEstrella= ventas[i][0];  //número de unidades del producto estrella
            //ahora recorremos el resto de productos
-           for (int k=1; k<productos; k++){
-               if (ventas[i][k]>ventasEstrella){
+           for (int j=1; j<productos; j++){
+               if (ventas[i][j]>ventasEstrella){
                    //encontramos un producto con más ventas. Actualizar
-                   estrella=k;
-                   ventasEstrella= ventas[i][k];
+                   estrella=j;
+                   ventasEstrella= ventas[i][j];
                }
            }
            //el producto más vendido del  mes está guardado en estrella
